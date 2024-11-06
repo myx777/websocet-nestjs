@@ -1,4 +1,10 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateBookCommentDto } from './create-book-comment.dto';
 
-export class UpdateBookCommentDto extends PartialType(CreateBookCommentDto) {}
+/**
+ * DTO для обновления комментария к книге.
+ * Этот класс расширяет `CreateBookCommentDto` и добавляет поле для указания времени обновления комментария.
+ */
+export class UpdateBookCommentDto extends PartialType(CreateBookCommentDto) {
+    updated_at?: Date;
+}
