@@ -6,5 +6,5 @@ import { CreateBookCommentDto } from './create-book-comment.dto';
  * Этот класс расширяет `CreateBookCommentDto` и добавляет поле для указания времени обновления комментария.
  */
 export class UpdateBookCommentDto extends PartialType(CreateBookCommentDto) {
-    updated_at?: Date;
+    readonly updated_at?: Date;
 }
