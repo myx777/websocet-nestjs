@@ -17,9 +17,9 @@ export class BookCommentsController {
     return this.bookCommentsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.bookCommentsService.findOne(+id);
+  @Get(':bookId')
+  indAllBookComment(@Param('bookId') bookId: string) {
+    return this.bookCommentsService.findOne(+bookId);
   }
 
   @Patch(':id')
