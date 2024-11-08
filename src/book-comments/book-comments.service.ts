@@ -3,6 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BookCommentModel } from './entities/book-comment.entity';
 
+/**
+ * Сервис для работы с комментариями к книгам.
+ */
 @Injectable()
 export class BookCommentsService {
   /**
@@ -27,5 +30,20 @@ export class BookCommentsService {
       throw new Error('No comments found');
     }
     return comments;
+  }
+
+  /**
+   * Создает новый комментарий к книге.
+   *
+   * @param {number} bookId - Идентификатор книги.
+   * @param {string} comment - Текст комментария.
+   * @returns {Promise<BookCommentModel>} - Промис с добавленным комментарием.
+   */
+  async createBookComment(
+    bookId: number,
+    comment: string,
+  ): Promise<BookCommentModel> {
+    const newComment = this.commentRepository.create({ bookId, comment });
+    return await this.commentRepository.save(newComment);
   }
 }

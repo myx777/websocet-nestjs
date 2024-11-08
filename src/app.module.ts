@@ -6,6 +6,7 @@ import { BookCommentsModule } from './book-comments/book-comments.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BookCommentModel } from './book-comments/entities/book-comment.entity';
+import { BookCommentsGatewayModule } from './book-comments-gateway/book-comments-gateway.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { BookCommentModel } from './book-comments/entities/book-comment.entity';
       synchronize: true, // только на этапе разработке
       entities: [BookCommentModel],
     }),
+    BookCommentsGatewayModule,
   ],
   controllers: [AppController],
   providers: [AppService, BookCommentsService],
