@@ -14,7 +14,7 @@ export class BookCommentsController {
   constructor(private readonly bookCommentsService: BookCommentsService) {}
 
   @Get(':bookId')
-  indAllBookComment(@Param('bookId') bookId: string) {
-    return this.bookCommentsService.findOne(+bookId);
+  async indAllBookComment(@Param('bookId') bookId: number) {
+    return await this.bookCommentsService.findAllBookComment(bookId);
   }
 }

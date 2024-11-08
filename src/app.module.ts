@@ -5,10 +5,7 @@ import { BookCommentsService } from './book-comments/book-comments.service';
 import { BookCommentsModule } from './book-comments/book-comments.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BookComment } from './book-comments/entities/book-comment.entity';
-import { BooksModule } from './books/books.module';
-import { BooksService } from './books/books.service';
-import { Book } from './books/entities/book.entity';
+import { BookCommentModel } from './book-comments/entities/book-comment.entity';
 
 @Module({
   imports: [
@@ -21,11 +18,10 @@ import { Book } from './books/entities/book.entity';
         'mongodb://root:root@localhost:27017/testComments',
       useUnifiedTopology: true,
       synchronize: true, // только на этапе разработке
-      entities: [BookComment, Book],
+      entities: [BookCommentModel],
     }),
-    BooksModule,
   ],
   controllers: [AppController],
-  providers: [AppService, BookCommentsService, BooksService],
+  providers: [AppService, BookCommentsService],
 })
 export class AppModule {}

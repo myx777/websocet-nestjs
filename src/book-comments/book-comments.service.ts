@@ -1,26 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBookCommentDto } from './dto/create-book-comment.dto';
-import { UpdateBookCommentDto } from './dto/update-book-comment.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { BookCommentModel } from './entities/book-comment.entity';
 
 @Injectable()
 export class BookCommentsService {
-  create(createBookCommentDto: CreateBookCommentDto) {
-    return 'This action adds a new bookComment';
-  }
+  /**
+   * Создает экземпляр сервиса комментариев к книге.
+   * @param {Repository<BookCommentModel>} commentRepository - Репозиторий для работы с комментариями.
+   */
+  constructor(
+    @InjectRepository(BookCommentModel)
+    private commentRepository: Repository<BookCommentModel>,
+  ) {}
 
-  findAll() {
-    return `This action returns all bookComments`;
-  }
+  /**
+   * Возвращает все комментарии, связанные с определенной книгой.
+   * @param {number} bookId - Идентификатор книги.
+   * @returns {Promise<BookCommentModel[]>} - Промис, который разрешается в массив комментариев.
+   * @throws {Error} Если комментарии не найдены.
+   */
+  async findAllBookComment(bookId: number): Promise<BookCommentModel[]> {
+    const comments = await this.commentRepository.find({ where: { bookId } });
 
-  findOne(id: number) {
-    return `This action returns a #${id} bookComment`;
-  }
-
-  update(id: number, updateBookCommentDto: UpdateBookCommentDto) {
-    return `This action updates a #${id} bookComment`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} bookComment`;
+    if (!comments || comments.length === 0) {
+      throw new Error('No comments found');
+    }
+    return comments;
   }
 }

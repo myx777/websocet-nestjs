@@ -1,56 +1,38 @@
-import { Column, Entity, ObjectIdColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 /**
  * Представляет комментарий к книге.
  *
- * @class BookComment
+ * @class BookCommentModel
  */
 @Entity()
-export class BookComment {
+export class BookCommentModel {
   /**
-   * Уникальный идентификатор комментария.
+   * Идентификатор книги, к которой относится комментарий.
+   * Генерируется автоматически.
    *
-   * @type {string}
-   * @memberof BookComment
+   * @type {number}
+   * @memberof BookCommentModel
    */
-  @ObjectIdColumn()
-  id: string;
+  @PrimaryGeneratedColumn()
+  bookId: number;
 
   /**
-   * Имя пользователя, оставившего комментарий.
+   * Уникальный идентификатор комментария.
+   * Генерируется автоматически.
    *
-   * @type {string}
-   * @memberof BookComment
+   * @type {number}
+   * @memberof BookCommentModel
    */
-  @Column()
-  name: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   /**
    * Текст комментария.
    *
    * @type {string}
-   * @memberof BookComment
+   * @memberof BookCommentModel
    */
   @Column()
-  description: string;
-
-  /**
-   * Дата создания комментария.
-   * По умолчанию устанавливается текущее время.
-   *
-   * @type {Date}
-   * @memberof BookComment
-   */
-  @Column({ default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
-
-  /**
-   * Дата обновления комментария.
-   * Может быть пустой, если комментарий не обновлялся.
-   *
-   * @type {Date | undefined}
-   * @memberof BookComment
-   */
-  @Column({ nullable: true })
-  updated_at?: Date;
+  comment: string;
 }
